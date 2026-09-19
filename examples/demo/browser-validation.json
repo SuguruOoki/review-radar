@@ -1,0 +1,20 @@
+{
+  "browser": "system Chromium via Playwright",
+  "renderMethod": "set_content (exact generated HTML; file:// blocked by container policy)",
+  "desktopViewport": [
+    1440,
+    1080
+  ],
+  "mobileViewport": [
+    390,
+    844
+  ],
+  "candidates": 9,
+  "requiredFilterCount": 3,
+  "billingSearchCount": 1,
+  "emptyState": true,
+  "evidenceToggle": true,
+  "noHorizontalOverflow": true,
+  "pageErrors": [],
+  "externalRequests": []
+}

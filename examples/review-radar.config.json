@@ -1,0 +1,86 @@
+{
+  "weights": {
+    "impact": 0.3,
+    "verificationGap": 0.25,
+    "humanJudgment": 0.25,
+    "boundary": 0.15,
+    "novelty": 0.05
+  },
+  "thresholds": {
+    "human": 65,
+    "uncertainty": 0.72,
+    "confidence": 0.35
+  },
+  "limits": {
+    "maxFiles": 100,
+    "maxUnits": 400,
+    "maxFileBytes": 200000,
+    "maxPatchBytes": 150000,
+    "evidenceChars": 8000,
+    "relatedFiles": 4
+  },
+  "jev": {
+    "model": "jev-latest",
+    "maxRequests": 30,
+    "concurrency": 2,
+    "timeoutMs": 20000,
+    "retries": 2,
+    "cacheTtlHours": 24
+  },
+  "exclude": [
+    "**/node_modules/**",
+    "**/vendor/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/*.min.js",
+    "**/package-lock.json",
+    "**/bun.lock",
+    "**/bun.lockb",
+    "**/pnpm-lock.yaml",
+    "**/yarn.lock"
+  ],
+  "pathRules": [
+    {
+      "id": "authorization-path",
+      "pattern": "**/auth/**",
+      "title": "認証・認可ディレクトリの変更",
+      "focus": "authorization",
+      "mandatory": true
+    },
+    {
+      "id": "billing-path",
+      "pattern": "**/billing/**",
+      "title": "課金ディレクトリの変更",
+      "focus": "money",
+      "mandatory": true
+    },
+    {
+      "id": "payments-path",
+      "pattern": "**/payments/**",
+      "title": "支払いディレクトリの変更",
+      "focus": "money",
+      "mandatory": true
+    },
+    {
+      "id": "migration-path",
+      "pattern": "**/migrations/**",
+      "title": "DBマイグレーションの変更",
+      "focus": "data",
+      "mandatory": true
+    },
+    {
+      "id": "prisma-schema",
+      "pattern": "**/schema.prisma",
+      "title": "Prismaスキーマの変更",
+      "focus": "data",
+      "mandatory": true
+    },
+    {
+      "id": "ci-permissions",
+      "pattern": ".github/workflows/**",
+      "title": "CIの権限・実行経路の確認",
+      "focus": "contract",
+      "mandatory": true
+    }
+  ]
+}
