@@ -1,7 +1,7 @@
 import { basename, resolve } from 'node:path';
 import { buildCandidates } from './context.js';
 import { fingerprint, snapshot } from './git.js';
-import { applyJev, BudgetExhausted, buildRequest, JevClient } from './jev.js';
+import { applyJev, BudgetExhausted, buildRequest, ENDPOINT, JevClient, LOCAL_ENDPOINT } from './jev.js';
 import { rankCandidate, sortCandidates } from './rules.js';
 import type { Report, ScanOptions, Snapshot, Usage } from './types.js';
 import { assert, hash, object, readProvided, redactDeep, safeMessage } from './util.js';
@@ -17,7 +17,7 @@ function readCI(path: string | undefined, s: Snapshot): Report['ci'] {
 }
 export async function scan(options: ScanOptions): Promise<Report> {
   validateConfig(options.config);
-  if (options.provider === 'jev' && !options.dryRun) {
+  if (options.provider === 'jev' && !options.dryRun && !LOCAL_ENDPOINT) {
     assert(options.allowExternalData === true, 'Jevへコードを送るには --allow-external-data が必要です。まず --provider heuristic または --dry-run で確認してください。');
     assert(!!process.env.TYPESAFE_API_KEY, 'TYPESAFE_API_KEY が未設定です。実通信は開始していません。');
   }
@@ -35,7 +35,8 @@ export async function scan(options: ScanOptions): Promise<Report> {
     }
     warnings.push(`DRY RUN: 外部送信なし。対象 ${eligible.length} 単位、全単位のJSON合計 ${bytes} bytes（トークン数ではありません）。最大 ${options.config.jev.maxRequests} HTTP試行、再試行もこの上限に含む。`);
   } else if (options.provider === 'jev') {
-    const client = new JevClient({ config: options.config, apiKey: process.env.TYPESAFE_API_KEY!, cacheDir: options.noCache ? undefined : resolve(options.out, 'cache'), usage });
+    const client = new JevClient({ config: options.config, apiKey: LOCAL_ENDPOINT ? 'local' : process.env.TYPESAFE_API_KEY!, cacheDir: options.noCache ? undefined : resolve(options.out, 'cache'), usage });
+    if (LOCAL_ENDPOINT) warnings.push(`ローカル評価器（${ENDPOINT}）で採点。Jev の結果ではなく、コードは外部に送っていません。`);
     let cursor = 0, done = 0;
     const worker = async (): Promise<void> => {
       while (cursor < candidates.length) {
