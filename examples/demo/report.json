@@ -1,0 +1,1032 @@
+{
+  "schemaVersion": 1,
+  "toolVersion": "0.1.0",
+  "id": "rr-757c12ff48cd0851e249",
+  "createdAt": "2026-09-18T17:50:38.219Z",
+  "demo": true,
+  "repository": {
+    "name": "demo-commerce",
+    "base": "26eb26cbc14bff80ab8804b2d69d0ae377d54d9f",
+    "head": "d7fcbca562ee201e9d467427accb4e4da433ca64",
+    "mode": "commits",
+    "diffFingerprint": "2e65b828f4aef7678f8968471d3aee70dcb978176953fd33446fb0c860a2699c"
+  },
+  "provider": "heuristic",
+  "config": {
+    "weights": {
+      "impact": 0.3,
+      "verificationGap": 0.25,
+      "humanJudgment": 0.25,
+      "boundary": 0.15,
+      "novelty": 0.05
+    },
+    "thresholds": {
+      "human": 65,
+      "uncertainty": 0.72,
+      "confidence": 0.35
+    },
+    "limits": {
+      "maxFiles": 100,
+      "maxUnits": 400,
+      "maxFileBytes": 200000,
+      "maxPatchBytes": 150000,
+      "evidenceChars": 8000,
+      "relatedFiles": 4
+    },
+    "jev": {
+      "model": "jev-latest",
+      "maxRequests": 30,
+      "concurrency": 2,
+      "timeoutMs": 20000,
+      "retries": 2,
+      "cacheTtlHours": 24
+    },
+    "exclude": [
+      "**/node_modules/**",
+      "**/vendor/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/*.min.js",
+      "**/package-lock.json",
+      "**/bun.lock",
+      "**/bun.lockb",
+      "**/pnpm-lock.yaml",
+      "**/yarn.lock"
+    ],
+    "pathRules": [
+      {
+        "id": "authorization-path",
+        "pattern": "**/auth/**",
+        "title": "認証・認可ディレクトリの変更",
+        "focus": "authorization",
+        "mandatory": true
+      },
+      {
+        "id": "billing-path",
+        "pattern": "**/billing/**",
+        "title": "課金ディレクトリの変更",
+        "focus": "money",
+        "mandatory": true
+      },
+      {
+        "id": "payments-path",
+        "pattern": "**/payments/**",
+        "title": "支払いディレクトリの変更",
+        "focus": "money",
+        "mandatory": true
+      },
+      {
+        "id": "migration-path",
+        "pattern": "**/migrations/**",
+        "title": "DBマイグレーションの変更",
+        "focus": "data",
+        "mandatory": true
+      },
+      {
+        "id": "prisma-schema",
+        "pattern": "**/schema.prisma",
+        "title": "Prismaスキーマの変更",
+        "focus": "data",
+        "mandatory": true
+      },
+      {
+        "id": "ci-permissions",
+        "pattern": ".github/workflows/**",
+        "title": "CIの権限・実行経路の確認",
+        "focus": "contract",
+        "mandatory": true
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "id": "u-6b62994610f4c57b",
+      "path": "migrations/20260919_reset.sql",
+      "status": "A",
+      "oldMode": "000000",
+      "newMode": "100644",
+      "oldStart": 0,
+      "oldEnd": 0,
+      "newStart": 1,
+      "newEnd": 2,
+      "added": 2,
+      "removed": 0,
+      "diff": "@@ -0,0 +1,2 @@\n+-- DEMO ONLY. Never execute this fixture on a database.\n+DROP TABLE payment_attempts;\n",
+      "signals": [
+        {
+          "id": "migration-path",
+          "pattern": "**/migrations/**",
+          "title": "DBマイグレーションの変更",
+          "focus": "data",
+          "mandatory": true,
+          "evidenceId": "E0",
+          "note": "設定したパス規則との一致。欠陥の検出ではありません。"
+        },
+        {
+          "id": "destructive-data",
+          "title": "破壊的データ操作の候補",
+          "focus": "data",
+          "mandatory": true,
+          "evidenceId": "E0",
+          "note": "追加・削除行の字句パターンとの一致。コメントやテストも一致し得ます。"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "E0",
+          "kind": "diff",
+          "path": "migrations/20260919_reset.sql",
+          "side": "head",
+          "start": 1,
+          "end": 2,
+          "text": "@@ -0,0 +1,2 @@\n+-- DEMO ONLY. Never execute this fixture on a database.\n+DROP TABLE payment_attempts;\n",
+          "truncated": false
+        },
+        {
+          "id": "E2",
+          "kind": "after",
+          "path": "migrations/20260919_reset.sql",
+          "side": "head",
+          "start": 1,
+          "end": 3,
+          "text": "-- DEMO ONLY. Never execute this fixture on a database.\nDROP TABLE payment_attempts;\n",
+          "truncated": false
+        }
+      ],
+      "axes": {
+        "impact": {
+          "value": 0.875,
+          "source": "heuristic",
+          "note": "パス・変更語からの暫定評価。実際の利用者影響は未検証。"
+        },
+        "verificationGap": {
+          "value": null,
+          "source": "heuristic",
+          "note": "テストの存在だけでは直接の検証・不足を判定しない。未評価。"
+        },
+        "humanJudgment": {
+          "value": 0.75,
+          "source": "heuristic",
+          "note": "検出カテゴリからの暫定評価。業務仕様の適合性は未検証。"
+        },
+        "boundary": {
+          "value": 0.75,
+          "source": "heuristic",
+          "note": "字句・パスからの境界変更の代理指標。依存グラフ解析ではない。"
+        },
+        "novelty": {
+          "value": 0.75,
+          "source": "heuristic",
+          "note": "新規ファイルとbase時点の最大40コミット数だけを使用。意味的な前例は未検証。"
+        }
+      },
+      "focus": "data",
+      "missing": [
+        "業務仕様・受け入れ条件は未提供。",
+        "関連テストを限定探索で取得できなかった。テスト不存在とは判断しない。",
+        "依存解決は相対importとファイル名一致による限定探索。型解決・全呼び出し元・動的依存は未解析。"
+      ],
+      "providerStatus": "heuristic",
+      "uncertainty": null,
+      "score": 80,
+      "knownWeight": 0.75,
+      "route": "human_required",
+      "required": true,
+      "questions": [
+        "部分失敗・再実行・並行処理でもデータ整合性が保たれるか。",
+        "削除・移行の対象範囲、バックアップ、ロールバックまたは復旧手順を確認する。",
+        "未確認事項を補ってから判断する。低い指数やCI成功だけで承認しない。"
+      ],
+      "historyCommits": 0
+    },
+    {
+      "id": "u-6efe24d153485a03",
+      "path": "src/auth/canView.ts",
+      "status": "M",
+      "oldMode": "100644",
+      "newMode": "100644",
+      "oldStart": 2,
+      "oldEnd": 2,
+      "newStart": 2,
+      "newEnd": 2,
+      "added": 1,
+      "removed": 1,
+      "diff": "@@ -1,3 +1,3 @@\n export function canView(user: { tenantId: string }, document: { tenantId: string }) {\n-  return user.tenantId === document.tenantId;\n+  return Boolean(user);\n }\n",
+      "signals": [
+        {
+          "id": "authorization-path",
+          "pattern": "**/auth/**",
+          "title": "認証・認可ディレクトリの変更",
+          "focus": "authorization",
+          "mandatory": true,
+          "evidenceId": "E0",
+          "note": "設定したパス規則との一致。欠陥の検出ではありません。"
+        },
+        {
+          "id": "authorization-code",
+          "title": "認可条件に関係する語・処理の変更",
+          "focus": "authorization",
+          "mandatory": true,
+          "evidenceId": "E0",
+          "note": "追加・削除行の字句パターンとの一致。コメントやテストも一致し得ます。"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "E0",
+          "kind": "diff",
+          "path": "src/auth/canView.ts",
+          "side": "head",
+          "start": 2,
+          "end": 2,
+          "text": "@@ -1,3 +1,3 @@\n export function canView(user: { tenantId: string }, document: { tenantId: string }) {\n-  return user.tenantId === document.tenantId;\n+  return Boolean(user);\n }\n",
+          "truncated": false
+        },
+        {
+          "id": "E1",
+          "kind": "before",
+          "path": "src/auth/canView.ts",
+          "side": "base",
+          "start": 1,
+          "end": 4,
+          "text": "export function canView(user: { tenantId: string }, document: { tenantId: string }) {\n  return user.tenantId === document.tenantId;\n}\n",
+          "truncated": false
+        },
+        {
+          "id": "E2",
+          "kind": "after",
+          "path": "src/auth/canView.ts",
+          "side": "head",
+          "start": 1,
+          "end": 4,
+          "text": "export function canView(user: { tenantId: string }, document: { tenantId: string }) {\n  return Boolean(user);\n}\n",
+          "truncated": false
+        }
+      ],
+      "axes": {
+        "impact": {
+          "value": 0.875,
+          "source": "heuristic",
+          "note": "パス・変更語からの暫定評価。実際の利用者影響は未検証。"
+        },
+        "verificationGap": {
+          "value": null,
+          "source": "heuristic",
+          "note": "テストの存在だけでは直接の検証・不足を判定しない。未評価。"
+        },
+        "humanJudgment": {
+          "value": 0.75,
+          "source": "heuristic",
+          "note": "検出カテゴリからの暫定評価。業務仕様の適合性は未検証。"
+        },
+        "boundary": {
+          "value": 0.75,
+          "source": "heuristic",
+          "note": "字句・パスからの境界変更の代理指標。依存グラフ解析ではない。"
+        },
+        "novelty": {
+          "value": 0.5,
+          "source": "heuristic",
+          "note": "新規ファイルとbase時点の最大40コミット数だけを使用。意味的な前例は未検証。"
+        }
+      },
+      "focus": "authorization",
+      "missing": [
+        "業務仕様・受け入れ条件は未提供。",
+        "関連テストを限定探索で取得できなかった。テスト不存在とは判断しない。",
+        "依存解決は相対importとファイル名一致による限定探索。型解決・全呼び出し元・動的依存は未解析。"
+      ],
+      "providerStatus": "heuristic",
+      "uncertainty": null,
+      "score": 78.3,
+      "knownWeight": 0.75,
+      "route": "human_required",
+      "required": true,
+      "questions": [
+        "権限のない利用者・別テナント・期限切れセッションを拒否できるか。拒否経路のテストはあるか。",
+        "従来の認可条件が削除・緩和されていないか。変更が意図した仕様かを担当者に確認する。",
+        "未確認事項を補ってから判断する。低い指数やCI成功だけで承認しない。"
+      ],
+      "historyCommits": 1
+    },
+    {
+      "id": "u-138da1332436ae57",
+      "path": "src/billing/retryPayment.ts",
+      "status": "M",
+      "oldMode": "100644",
+      "newMode": "100644",
+      "oldStart": 4,
+      "oldEnd": 4,
+      "newStart": 4,
+      "newEnd": 5,
+      "added": 2,
+      "removed": 1,
+      "diff": "@@ -1,5 +1,6 @@\n import { gateway } from '../gateway';\n \n export async function retryPayment(order: { id: string; amount: number }) {\n-  return gateway.charge({ amount: order.amount, idempotencyKey: order.id });\n+  // Retry after a timeout. Does the original request already have a result?\n+  return gateway.charge({ amount: order.amount });\n }\n",
+      "signals": [
+        {
+          "id": "billing-path",
+          "pattern": "**/billing/**",
+          "title": "課金ディレクトリの変更",
+          "focus": "money",
+          "mandatory": true,
+          "evidenceId": "E0",
+          "note": "設定したパス規則との一致。欠陥の検出ではありません。"
+        },
+        {
+          "id": "payment-code",
+          "title": "支払い・返金に関係する処理の変更",
+          "focus": "money",
+          "mandatory": true,
+          "evidenceId": "E0",
+          "note": "追加・削除行の字句パターンとの一致。コメントやテストも一致し得ます。"
+        },
+        {
+          "id": "async-change",
+          "title": "非同期・再試行・トランザクションの変更",
+          "focus": "async",
+          "mandatory": false,
+          "evidenceId": "E0",
+          "note": "追加・削除行の字句パターンとの一致。コメントやテストも一致し得ます。"
+        },
+        {
+          "id": "boundary-change",
+          "title": "外部境界・インターフェースの変更",
+          "focus": "contract",
+          "mandatory": false,
+          "evidenceId": "E0",
+          "note": "追加・削除行の字句パターンとの一致。コメントやテストも一致し得ます。"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "E0",
+          "kind": "diff",
+          "path": "src/billing/retryPayment.ts",
+          "side": "head",
+          "start": 4,
+          "end": 5,
+          "text": "@@ -1,5 +1,6 @@\n import { gateway } from '../gateway';\n \n export async function retryPayment(order: { id: string; amount: number }) {\n-  return gateway.charge({ amount: order.amount, idempotencyKey: order.id });\n+  // Retry after a timeout. Does the original request already have a result?\n+  return gateway.charge({ amount: order.amount });\n }\n",
+          "truncated": false
+        },
+        {
+          "id": "E1",
+          "kind": "before",
+          "path": "src/billing/retryPayment.ts",
+          "side": "base",
+          "start": 1,
+          "end": 6,
+          "text": "import { gateway } from '../gateway';\n\nexport async function retryPayment(order: { id: string; amount: number }) {\n  return gateway.charge({ amount: order.amount, idempotencyKey: order.id });\n}\n",
+          "truncated": false
+        },
+        {
+          "id": "E2",
+          "kind": "after",
+          "path": "src/billing/retryPayment.ts",
+          "side": "head",
+          "start": 1,
+          "end": 7,
+          "text": "import { gateway } from '../gateway';\n\nexport async function retryPayment(order: { id: string; amount: number }) {\n  // Retry after a timeout. Does the original request already have a result?\n  return gateway.charge({ amount: order.amount });\n}\n",
+          "truncated": false
+        },
+        {
+          "id": "R1",
+          "kind": "test",
+          "path": "tests/retryPayment.test.ts",
+          "side": "head",
+          "start": 1,
+          "end": 8,
+          "text": "// Illustrative test source; this file is not executed by Review Radar.\nimport { retryPayment } from '../src/billing/retryPayment';\nimport { expect, test } from 'vitest';\ntest('returns a result', async () => {\n  const result = await retryPayment({ id: 'order-1', amount: 100 });\n  expect(result.id).toBe('demo');\n});\n",
+          "truncated": false
+        },
+        {
+          "id": "R2",
+          "kind": "dependency",
+          "path": "src/gateway.ts",
+          "side": "head",
+          "start": 1,
+          "end": 3,
+          "text": "// Demo adapter only. No real payment processing.\nexport const gateway = { charge: async (args: { amount: number; idempotencyKey?: string }) => ({ id: 'demo', ...args }) };\n",
+          "truncated": false
+        }
+      ],
+      "axes": {
+        "impact": {
+          "value": 0.875,
+          "source": "heuristic",
+          "note": "パス・変更語からの暫定評価。実際の利用者影響は未検証。"
+        },
+        "verificationGap": {
+          "value": null,
+          "source": "heuristic",
+          "note": "テストの存在だけでは直接の検証・不足を判定しない。未評価。"
+        },
+        "humanJudgment": {
+          "value": 0.75,
+          "source": "heuristic",
+          "note": "検出カテゴリからの暫定評価。業務仕様の適合性は未検証。"
+        },
+        "boundary": {
+          "value": 0.75,
+          "source": "heuristic",
+          "note": "字句・パスからの境界変更の代理指標。依存グラフ解析ではない。"
+        },
+        "novelty": {
+          "value": 0.5,
+          "source": "heuristic",
+          "note": "新規ファイルとbase時点の最大40コミット数だけを使用。意味的な前例は未検証。"
+        }
+      },
+      "focus": "money",
+      "missing": [
+        "業務仕様・受け入れ条件は未提供。",
+        "依存解決は相対importとファイル名一致による限定探索。型解決・全呼び出し元・動的依存は未解析。"
+      ],
+      "providerStatus": "heuristic",
+      "uncertainty": null,
+      "score": 78.3,
+      "knownWeight": 0.75,
+      "route": "human_required",
+      "required": true,
+      "questions": [
+        "タイムアウト・再送・Webhookの重複でも課金や返金が二重に成立しないか。",
+        "金額・通貨・端数処理・状態遷移が業務ルールと一致するか。",
+        "未確認事項を補ってから判断する。低い指数やCI成功だけで承認しない。"
+      ],
+      "historyCommits": 1
+    },
+    {
+      "id": "u-00502d59be14f08d",
+      "path": "README.md",
+      "status": "M",
+      "oldMode": "100644",
+      "newMode": "100644",
+      "oldStart": 3,
+      "oldEnd": 3,
+      "newStart": 3,
+      "newEnd": 3,
+      "added": 1,
+      "removed": 1,
+      "diff": "@@ -1,3 +1,3 @@\n # Demo\n \n-Example application.\n+Example application for a review-priority report.\n",
+      "signals": [],
+      "evidence": [
+        {
+          "id": "E0",
+          "kind": "diff",
+          "path": "README.md",
+          "side": "head",
+          "start": 3,
+          "end": 3,
+          "text": "@@ -1,3 +1,3 @@\n # Demo\n \n-Example application.\n+Example application for a review-priority report.\n",
+          "truncated": false
+        },
+        {
+          "id": "E1",
+          "kind": "before",
+          "path": "README.md",
+          "side": "base",
+          "start": 1,
+          "end": 4,
+          "text": "# Demo\n\nExample application.\n",
+          "truncated": false
+        },
+        {
+          "id": "E2",
+          "kind": "after",
+          "path": "README.md",
+          "side": "head",
+          "start": 1,
+          "end": 4,
+          "text": "# Demo\n\nExample application for a review-priority report.\n",
+          "truncated": false
+        }
+      ],
+      "axes": {
+        "impact": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "パス・変更語からの暫定評価。実際の利用者影響は未検証。"
+        },
+        "verificationGap": {
+          "value": null,
+          "source": "heuristic",
+          "note": "テストの存在だけでは直接の検証・不足を判定しない。未評価。"
+        },
+        "humanJudgment": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "検出カテゴリからの暫定評価。業務仕様の適合性は未検証。"
+        },
+        "boundary": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "字句・パスからの境界変更の代理指標。依存グラフ解析ではない。"
+        },
+        "novelty": {
+          "value": 0.5,
+          "source": "heuristic",
+          "note": "新規ファイルとbase時点の最大40コミット数だけを使用。意味的な前例は未検証。"
+        }
+      },
+      "focus": "general",
+      "missing": [
+        "業務仕様・受け入れ条件は未提供。",
+        "関連テストを限定探索で取得できなかった。テスト不存在とは判断しない。",
+        "依存解決は相対importとファイル名一致による限定探索。型解決・全呼び出し元・動的依存は未解析。"
+      ],
+      "providerStatus": "heuristic",
+      "uncertainty": null,
+      "score": 26.7,
+      "knownWeight": 0.75,
+      "route": "regular_review",
+      "required": false,
+      "questions": [
+        "変更した条件と期待する結果を説明できるか。その条件を直接検証するテストはあるか。",
+        "差分外の呼び出し元や業務仕様に、同時に変更すべき箇所がないか。",
+        "未確認事項を補ってから判断する。低い指数やCI成功だけで承認しない。"
+      ],
+      "historyCommits": 1
+    },
+    {
+      "id": "u-b4828ce834f7ea1d",
+      "path": "src/queue/retry.ts",
+      "status": "M",
+      "oldMode": "100644",
+      "newMode": "100644",
+      "oldStart": 2,
+      "oldEnd": 2,
+      "newStart": 2,
+      "newEnd": 2,
+      "added": 1,
+      "removed": 1,
+      "diff": "@@ -1,3 +1,3 @@\n export function retryLimit() {\n-  return 1;\n+  return 5;\n }\n",
+      "signals": [],
+      "evidence": [
+        {
+          "id": "E0",
+          "kind": "diff",
+          "path": "src/queue/retry.ts",
+          "side": "head",
+          "start": 2,
+          "end": 2,
+          "text": "@@ -1,3 +1,3 @@\n export function retryLimit() {\n-  return 1;\n+  return 5;\n }\n",
+          "truncated": false
+        },
+        {
+          "id": "E1",
+          "kind": "before",
+          "path": "src/queue/retry.ts",
+          "side": "base",
+          "start": 1,
+          "end": 4,
+          "text": "export function retryLimit() {\n  return 1;\n}\n",
+          "truncated": false
+        },
+        {
+          "id": "E2",
+          "kind": "after",
+          "path": "src/queue/retry.ts",
+          "side": "head",
+          "start": 1,
+          "end": 4,
+          "text": "export function retryLimit() {\n  return 5;\n}\n",
+          "truncated": false
+        }
+      ],
+      "axes": {
+        "impact": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "パス・変更語からの暫定評価。実際の利用者影響は未検証。"
+        },
+        "verificationGap": {
+          "value": null,
+          "source": "heuristic",
+          "note": "テストの存在だけでは直接の検証・不足を判定しない。未評価。"
+        },
+        "humanJudgment": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "検出カテゴリからの暫定評価。業務仕様の適合性は未検証。"
+        },
+        "boundary": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "字句・パスからの境界変更の代理指標。依存グラフ解析ではない。"
+        },
+        "novelty": {
+          "value": 0.5,
+          "source": "heuristic",
+          "note": "新規ファイルとbase時点の最大40コミット数だけを使用。意味的な前例は未検証。"
+        }
+      },
+      "focus": "general",
+      "missing": [
+        "業務仕様・受け入れ条件は未提供。",
+        "関連テストを限定探索で取得できなかった。テスト不存在とは判断しない。",
+        "依存解決は相対importとファイル名一致による限定探索。型解決・全呼び出し元・動的依存は未解析。"
+      ],
+      "providerStatus": "heuristic",
+      "uncertainty": null,
+      "score": 26.7,
+      "knownWeight": 0.75,
+      "route": "regular_review",
+      "required": false,
+      "questions": [
+        "変更した条件と期待する結果を説明できるか。その条件を直接検証するテストはあるか。",
+        "差分外の呼び出し元や業務仕様に、同時に変更すべき箇所がないか。",
+        "未確認事項を補ってから判断する。低い指数やCI成功だけで承認しない。"
+      ],
+      "historyCommits": 1
+    },
+    {
+      "id": "u-034672da0e8ecd27",
+      "path": "src/ui/button.ts",
+      "status": "M",
+      "oldMode": "100644",
+      "newMode": "100644",
+      "oldStart": 1,
+      "oldEnd": 1,
+      "newStart": 1,
+      "newEnd": 1,
+      "added": 1,
+      "removed": 1,
+      "diff": "@@ -1 +1 @@\n-export const label = 'Submit';\n+export const label = 'Continue';\n",
+      "signals": [],
+      "evidence": [
+        {
+          "id": "E0",
+          "kind": "diff",
+          "path": "src/ui/button.ts",
+          "side": "head",
+          "start": 1,
+          "end": 1,
+          "text": "@@ -1 +1 @@\n-export const label = 'Submit';\n+export const label = 'Continue';\n",
+          "truncated": false
+        },
+        {
+          "id": "E1",
+          "kind": "before",
+          "path": "src/ui/button.ts",
+          "side": "base",
+          "start": 1,
+          "end": 2,
+          "text": "export const label = 'Submit';\n",
+          "truncated": false
+        },
+        {
+          "id": "E2",
+          "kind": "after",
+          "path": "src/ui/button.ts",
+          "side": "head",
+          "start": 1,
+          "end": 2,
+          "text": "export const label = 'Continue';\n",
+          "truncated": false
+        }
+      ],
+      "axes": {
+        "impact": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "パス・変更語からの暫定評価。実際の利用者影響は未検証。"
+        },
+        "verificationGap": {
+          "value": null,
+          "source": "heuristic",
+          "note": "テストの存在だけでは直接の検証・不足を判定しない。未評価。"
+        },
+        "humanJudgment": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "検出カテゴリからの暫定評価。業務仕様の適合性は未検証。"
+        },
+        "boundary": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "字句・パスからの境界変更の代理指標。依存グラフ解析ではない。"
+        },
+        "novelty": {
+          "value": 0.5,
+          "source": "heuristic",
+          "note": "新規ファイルとbase時点の最大40コミット数だけを使用。意味的な前例は未検証。"
+        }
+      },
+      "focus": "general",
+      "missing": [
+        "業務仕様・受け入れ条件は未提供。",
+        "関連テストを限定探索で取得できなかった。テスト不存在とは判断しない。",
+        "依存解決は相対importとファイル名一致による限定探索。型解決・全呼び出し元・動的依存は未解析。"
+      ],
+      "providerStatus": "heuristic",
+      "uncertainty": null,
+      "score": 26.7,
+      "knownWeight": 0.75,
+      "route": "regular_review",
+      "required": false,
+      "questions": [
+        "変更した条件と期待する結果を説明できるか。その条件を直接検証するテストはあるか。",
+        "差分外の呼び出し元や業務仕様に、同時に変更すべき箇所がないか。",
+        "未確認事項を補ってから判断する。低い指数やCI成功だけで承認しない。"
+      ],
+      "historyCommits": 1
+    },
+    {
+      "id": "u-5e1df4cec4d32f89",
+      "path": "src/ui/footer.ts",
+      "status": "M",
+      "oldMode": "100644",
+      "newMode": "100644",
+      "oldStart": 1,
+      "oldEnd": 1,
+      "newStart": 1,
+      "newEnd": 1,
+      "added": 1,
+      "removed": 1,
+      "diff": "@@ -1 +1 @@\n-export const footer = 'All rights reserved';\n+export const footer = 'Thank you for visiting';\n",
+      "signals": [],
+      "evidence": [
+        {
+          "id": "E0",
+          "kind": "diff",
+          "path": "src/ui/footer.ts",
+          "side": "head",
+          "start": 1,
+          "end": 1,
+          "text": "@@ -1 +1 @@\n-export const footer = 'All rights reserved';\n+export const footer = 'Thank you for visiting';\n",
+          "truncated": false
+        },
+        {
+          "id": "E1",
+          "kind": "before",
+          "path": "src/ui/footer.ts",
+          "side": "base",
+          "start": 1,
+          "end": 2,
+          "text": "export const footer = 'All rights reserved';\n",
+          "truncated": false
+        },
+        {
+          "id": "E2",
+          "kind": "after",
+          "path": "src/ui/footer.ts",
+          "side": "head",
+          "start": 1,
+          "end": 2,
+          "text": "export const footer = 'Thank you for visiting';\n",
+          "truncated": false
+        }
+      ],
+      "axes": {
+        "impact": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "パス・変更語からの暫定評価。実際の利用者影響は未検証。"
+        },
+        "verificationGap": {
+          "value": null,
+          "source": "heuristic",
+          "note": "テストの存在だけでは直接の検証・不足を判定しない。未評価。"
+        },
+        "humanJudgment": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "検出カテゴリからの暫定評価。業務仕様の適合性は未検証。"
+        },
+        "boundary": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "字句・パスからの境界変更の代理指標。依存グラフ解析ではない。"
+        },
+        "novelty": {
+          "value": 0.5,
+          "source": "heuristic",
+          "note": "新規ファイルとbase時点の最大40コミット数だけを使用。意味的な前例は未検証。"
+        }
+      },
+      "focus": "general",
+      "missing": [
+        "業務仕様・受け入れ条件は未提供。",
+        "関連テストを限定探索で取得できなかった。テスト不存在とは判断しない。",
+        "依存解決は相対importとファイル名一致による限定探索。型解決・全呼び出し元・動的依存は未解析。"
+      ],
+      "providerStatus": "heuristic",
+      "uncertainty": null,
+      "score": 26.7,
+      "knownWeight": 0.75,
+      "route": "regular_review",
+      "required": false,
+      "questions": [
+        "変更した条件と期待する結果を説明できるか。その条件を直接検証するテストはあるか。",
+        "差分外の呼び出し元や業務仕様に、同時に変更すべき箇所がないか。",
+        "未確認事項を補ってから判断する。低い指数やCI成功だけで承認しない。"
+      ],
+      "historyCommits": 1
+    },
+    {
+      "id": "u-1c240a77e4e0f270",
+      "path": "src/ui/help.ts",
+      "status": "M",
+      "oldMode": "100644",
+      "newMode": "100644",
+      "oldStart": 1,
+      "oldEnd": 1,
+      "newStart": 1,
+      "newEnd": 1,
+      "added": 1,
+      "removed": 1,
+      "diff": "@@ -1 +1 @@\n-export const help = 'Contact support';\n+export const help = 'Ask us a question';\n",
+      "signals": [],
+      "evidence": [
+        {
+          "id": "E0",
+          "kind": "diff",
+          "path": "src/ui/help.ts",
+          "side": "head",
+          "start": 1,
+          "end": 1,
+          "text": "@@ -1 +1 @@\n-export const help = 'Contact support';\n+export const help = 'Ask us a question';\n",
+          "truncated": false
+        },
+        {
+          "id": "E1",
+          "kind": "before",
+          "path": "src/ui/help.ts",
+          "side": "base",
+          "start": 1,
+          "end": 2,
+          "text": "export const help = 'Contact support';\n",
+          "truncated": false
+        },
+        {
+          "id": "E2",
+          "kind": "after",
+          "path": "src/ui/help.ts",
+          "side": "head",
+          "start": 1,
+          "end": 2,
+          "text": "export const help = 'Ask us a question';\n",
+          "truncated": false
+        }
+      ],
+      "axes": {
+        "impact": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "パス・変更語からの暫定評価。実際の利用者影響は未検証。"
+        },
+        "verificationGap": {
+          "value": null,
+          "source": "heuristic",
+          "note": "テストの存在だけでは直接の検証・不足を判定しない。未評価。"
+        },
+        "humanJudgment": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "検出カテゴリからの暫定評価。業務仕様の適合性は未検証。"
+        },
+        "boundary": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "字句・パスからの境界変更の代理指標。依存グラフ解析ではない。"
+        },
+        "novelty": {
+          "value": 0.5,
+          "source": "heuristic",
+          "note": "新規ファイルとbase時点の最大40コミット数だけを使用。意味的な前例は未検証。"
+        }
+      },
+      "focus": "general",
+      "missing": [
+        "業務仕様・受け入れ条件は未提供。",
+        "関連テストを限定探索で取得できなかった。テスト不存在とは判断しない。",
+        "依存解決は相対importとファイル名一致による限定探索。型解決・全呼び出し元・動的依存は未解析。"
+      ],
+      "providerStatus": "heuristic",
+      "uncertainty": null,
+      "score": 26.7,
+      "knownWeight": 0.75,
+      "route": "regular_review",
+      "required": false,
+      "questions": [
+        "変更した条件と期待する結果を説明できるか。その条件を直接検証するテストはあるか。",
+        "差分外の呼び出し元や業務仕様に、同時に変更すべき箇所がないか。",
+        "未確認事項を補ってから判断する。低い指数やCI成功だけで承認しない。"
+      ],
+      "historyCommits": 1
+    },
+    {
+      "id": "u-7b0aa8770ee28ee0",
+      "path": "src/ui/title.ts",
+      "status": "M",
+      "oldMode": "100644",
+      "newMode": "100644",
+      "oldStart": 1,
+      "oldEnd": 1,
+      "newStart": 1,
+      "newEnd": 1,
+      "added": 1,
+      "removed": 1,
+      "diff": "@@ -1 +1 @@\n-export const title = 'Welcome';\n+export const title = 'Welcome back';\n",
+      "signals": [],
+      "evidence": [
+        {
+          "id": "E0",
+          "kind": "diff",
+          "path": "src/ui/title.ts",
+          "side": "head",
+          "start": 1,
+          "end": 1,
+          "text": "@@ -1 +1 @@\n-export const title = 'Welcome';\n+export const title = 'Welcome back';\n",
+          "truncated": false
+        },
+        {
+          "id": "E1",
+          "kind": "before",
+          "path": "src/ui/title.ts",
+          "side": "base",
+          "start": 1,
+          "end": 2,
+          "text": "export const title = 'Welcome';\n",
+          "truncated": false
+        },
+        {
+          "id": "E2",
+          "kind": "after",
+          "path": "src/ui/title.ts",
+          "side": "head",
+          "start": 1,
+          "end": 2,
+          "text": "export const title = 'Welcome back';\n",
+          "truncated": false
+        }
+      ],
+      "axes": {
+        "impact": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "パス・変更語からの暫定評価。実際の利用者影響は未検証。"
+        },
+        "verificationGap": {
+          "value": null,
+          "source": "heuristic",
+          "note": "テストの存在だけでは直接の検証・不足を判定しない。未評価。"
+        },
+        "humanJudgment": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "検出カテゴリからの暫定評価。業務仕様の適合性は未検証。"
+        },
+        "boundary": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "字句・パスからの境界変更の代理指標。依存グラフ解析ではない。"
+        },
+        "novelty": {
+          "value": 0.5,
+          "source": "heuristic",
+          "note": "新規ファイルとbase時点の最大40コミット数だけを使用。意味的な前例は未検証。"
+        }
+      },
+      "focus": "general",
+      "missing": [
+        "業務仕様・受け入れ条件は未提供。",
+        "関連テストを限定探索で取得できなかった。テスト不存在とは判断しない。",
+        "依存解決は相対importとファイル名一致による限定探索。型解決・全呼び出し元・動的依存は未解析。"
+      ],
+      "providerStatus": "heuristic",
+      "uncertainty": null,
+      "score": 26.7,
+      "knownWeight": 0.75,
+      "route": "regular_review",
+      "required": false,
+      "questions": [
+        "変更した条件と期待する結果を説明できるか。その条件を直接検証するテストはあるか。",
+        "差分外の呼び出し元や業務仕様に、同時に変更すべき箇所がないか。",
+        "未確認事項を補ってから判断する。低い指数やCI成功だけで承認しない。"
+      ],
+      "historyCommits": 1
+    }
+  ],
+  "omissions": [],
+  "warnings": [
+    "業務仕様は未提供。--context に仕様・受け入れ条件を渡すと評価材料に含められます。",
+    "ローカル規則モード。Jevの意味評価は未実行で、検証不足の軸は未評価です。"
+  ],
+  "auditSample": [
+    "u-034672da0e8ecd27"
+  ],
+  "usage": {
+    "requests": 0,
+    "cacheHits": 0,
+    "errors": 0,
+    "budgetSkipped": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "redactions": 0
+  },
+  "complete": true,
+  "ci": {
+    "status": "unknown",
+    "note": "CI結果は未提供。このツールはテストを実行しません。"
+  }
+}

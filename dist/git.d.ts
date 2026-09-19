@@ -1,0 +1,11 @@
+import type { ChangedFile, Hunk, ScanOptions, Snapshot } from './types.js';
+export declare function git(root: string, args: string[], maxBuffer?: number): string;
+export declare function resolveCommit(root: string, ref: string): string;
+export declare function diffArgs(s: Pick<Snapshot, 'baseSha' | 'headSha' | 'mode'>): string[];
+export declare function parseRawDiff(raw: string): ChangedFile[];
+export declare function fingerprint(s: Snapshot): string;
+export declare function snapshot(options: ScanOptions): Snapshot;
+export declare function readSource(s: Snapshot, path: string, side: 'base' | 'head', maxBytes: number): string;
+export declare function fileDiff(s: Snapshot, f: ChangedFile, maxBytes: number): string;
+export declare function parseHunks(patch: string): Hunk[];
+export declare function historyCount(s: Snapshot, path: string): number | null;

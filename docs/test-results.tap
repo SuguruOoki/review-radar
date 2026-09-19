@@ -1,0 +1,414 @@
+
+> review-radar@0.1.0 test
+> npm run build && node --test tests/*.test.mjs
+
+
+> review-radar@0.1.0 build
+> tsc -p tsconfig.json
+
+TAP version 13
+# Subtest: CLI doctor checks local prerequisites without an API key
+ok 1 - CLI doctor checks local prerequisites without an API key
+  ---
+  duration_ms: 60.04185
+  type: 'test'
+  ...
+# Subtest: CLI rejects unknown options without writing a report
+ok 2 - CLI rejects unknown options without writing a report
+  ---
+  duration_ms: 47.86578
+  type: 'test'
+  ...
+# Subtest: CLI Jev dry-run works without credentials or disclosure consent
+ok 3 - CLI Jev dry-run works without credentials or disclosure consent
+  ---
+  duration_ms: 112.158828
+  type: 'test'
+  ...
+# Subtest: CLI live Jev mode fails before sending when key is missing
+ok 4 - CLI live Jev mode fails before sending when key is missing
+  ---
+  duration_ms: 82.729884
+  type: 'test'
+  ...
+# Subtest: CLI fail-on-required distinguishes a normal exit from a review gate
+ok 5 - CLI fail-on-required distinguishes a normal exit from a review gate
+  ---
+  duration_ms: 137.038222
+  type: 'test'
+  ...
+# Subtest: CLI rerank preserves model judgments and accepts only weight changes
+ok 6 - CLI rerank preserves model judgments and accepts only weight changes
+  ---
+  duration_ms: 158.047218
+  type: 'test'
+  ...
+# Subtest: CLI feedback and evaluate work end-to-end on the saved report
+ok 7 - CLI feedback and evaluate work end-to-end on the saved report
+  ---
+  duration_ms: 156.592159
+  type: 'test'
+  ...
+# Subtest: full pipeline uses validated mock Jev results and stable cache report identity
+ok 8 - full pipeline uses validated mock Jev results and stable cache report identity
+  ---
+  duration_ms: 106.526893
+  type: 'test'
+  ...
+# Subtest: full pipeline preserves a zero-budget candidate as incomplete without network calls
+ok 9 - full pipeline preserves a zero-budget candidate as incomplete without network calls
+  ---
+  duration_ms: 61.873798
+  type: 'test'
+  ...
+# Subtest: changing supplied specification changes report identity even with identical local axes
+ok 10 - changing supplied specification changes report identity even with identical local axes
+  ---
+  duration_ms: 71.778033
+  type: 'test'
+  ...
+# Subtest: unified diff keeps old/new changed line numbers
+ok 11 - unified diff keeps old/new changed line numbers
+  ---
+  duration_ms: 2.075834
+  type: 'test'
+  ...
+# Subtest: deletion-only hunk has base-side lines
+ok 12 - deletion-only hunk has base-side lines
+  ---
+  duration_ms: 0.243269
+  type: 'test'
+  ...
+# Subtest: no-newline marker does not shift line counters
+ok 13 - no-newline marker does not shift line counters
+  ---
+  duration_ms: 0.141685
+  type: 'test'
+  ...
+# Subtest: reject a truncated diff instead of scoring it
+ok 14 - reject a truncated diff instead of scoring it
+  ---
+  duration_ms: 0.352885
+  type: 'test'
+  ...
+# Subtest: raw NUL diff preserves spaces and tabs in path
+ok 15 - raw NUL diff preserves spaces and tabs in path
+  ---
+  duration_ms: 0.238101
+  type: 'test'
+  ...
+# Subtest: raw diff rejects path traversal
+ok 16 - raw diff rejects path traversal
+  ---
+  duration_ms: 0.616208
+  type: 'test'
+  ...
+# Subtest: committed scan uses pinned Git contents, not dirty worktree
+ok 17 - committed scan uses pinned Git contents, not dirty worktree
+  ---
+  duration_ms: 80.393341
+  type: 'test'
+  ...
+# Subtest: staged scan excludes later unstaged edits
+ok 18 - staged scan excludes later unstaged edits
+  ---
+  duration_ms: 70.924466
+  type: 'test'
+  ...
+# Subtest: worktree scan includes staged plus unstaged net change
+ok 19 - worktree scan includes staged plus unstaged net change
+  ---
+  duration_ms: 61.328838
+  type: 'test'
+  ...
+# Subtest: untracked files are explicitly omitted unless opted in
+ok 20 - untracked files are explicitly omitted unless opted in
+  ---
+  duration_ms: 67.000328
+  type: 'test'
+  ...
+# Subtest: deleted authorization condition triggers human requirement
+ok 21 - deleted authorization condition triggers human requirement
+  ---
+  duration_ms: 61.752171
+  type: 'test'
+  ...
+# Subtest: deleted file is retained with base evidence
+ok 22 - deleted file is retained with base evidence
+  ---
+  duration_ms: 65.109764
+  type: 'test'
+  ...
+# Subtest: excluded lockfile is listed, never silently marked safe
+ok 23 - excluded lockfile is listed, never silently marked safe
+  ---
+  duration_ms: 39.963638
+  type: 'test'
+  ...
+# Subtest: secrets path creates manual placeholder with no content
+ok 24 - secrets path creates manual placeholder with no content
+  ---
+  duration_ms: 37.2781
+  type: 'test'
+  ...
+# Subtest: symlink is not followed
+ok 25 - symlink is not followed
+  ---
+  duration_ms: 45.077112
+  type: 'test'
+  ...
+# Subtest: binary change is left for manual inspection
+ok 26 - binary change is left for manual inspection
+  ---
+  duration_ms: 46.478414
+  type: 'test'
+  ...
+# Subtest: mode-only change is retained
+ok 27 - mode-only change is retained
+  ---
+  duration_ms: 42.578007
+  type: 'test'
+  ...
+# Subtest: unit limit exposes unanalysed remainder
+ok 28 - unit limit exposes unanalysed remainder
+  ---
+  duration_ms: 49.864016
+  type: 'test'
+  ...
+# Subtest: filenames do not execute shell expressions
+ok 29 - filenames do not execute shell expressions
+  ---
+  duration_ms: 62.705183
+  type: 'test'
+  ...
+# Subtest: mismatched CI revision is unknown
+ok 30 - mismatched CI revision is unknown
+  ---
+  duration_ms: 78.390949
+  type: 'test'
+  ...
+# Subtest: changed relative dependency and test are retrieved from the same target
+ok 31 - changed relative dependency and test are retrieved from the same target
+  ---
+  duration_ms: 67.449884
+  type: 'test'
+  ...
+# Subtest: Jev consent is mandatory and checked before Git access
+ok 32 - Jev consent is mandatory and checked before Git access
+  ---
+  duration_ms: 0.680751
+  type: 'test'
+  ...
+# Subtest: HTTP request uses documented endpoint, auth, body and no redirect
+ok 33 - HTTP request uses documented endpoint, auth, body and no redirect
+  ---
+  duration_ms: 18.166372
+  type: 'test'
+  ...
+# Subtest: reject absent question response
+ok 34 - reject absent question response
+  ---
+  duration_ms: 0.243519
+  type: 'test'
+  ...
+# Subtest: reject probabilities that do not sum to 1
+ok 35 - reject probabilities that do not sum to 1
+  ---
+  duration_ms: 0.415479
+  type: 'test'
+  ...
+# Subtest: reject NaN confidence
+ok 36 - reject NaN confidence
+  ---
+  duration_ms: 0.15804
+  type: 'test'
+  ...
+# Subtest: reject score inconsistent with distribution
+ok 37 - reject score inconsistent with distribution
+  ---
+  duration_ms: 0.210469
+  type: 'test'
+  ...
+# Subtest: reject invented evidence choice
+ok 38 - reject invented evidence choice
+  ---
+  duration_ms: 0.176147
+  type: 'test'
+  ...
+# Subtest: retryable status is retried inside total budget
+ok 39 - retryable status is retried inside total budget
+  ---
+  duration_ms: 0.922738
+  type: 'test'
+  ...
+# Subtest: 401 is not retried
+ok 40 - 401 is not retried
+  ---
+  duration_ms: 0.506908
+  type: 'test'
+  ...
+# Subtest: hard budget counts failed attempts and stops retries
+ok 41 - hard budget counts failed attempts and stops retries
+  ---
+  duration_ms: 0.530253
+  type: 'test'
+  ...
+# Subtest: cache hit does not consume request budget; changed evidence invalidates
+ok 42 - cache hit does not consume request budget; changed evidence invalidates
+  ---
+  duration_ms: 4.046188
+  type: 'test'
+  ...
+# Subtest: TTL expiry prevents stale cache reuse
+ok 43 - TTL expiry prevents stale cache reuse
+  ---
+  duration_ms: 2.546086
+  type: 'test'
+  ...
+# Subtest: verification unknown remains unscored even with high score response
+ok 44 - verification unknown remains unscored even with high score response
+  ---
+  duration_ms: 67.981514
+  type: 'test'
+  ...
+# Subtest: Jev cannot remove deterministic mandatory condition
+ok 45 - Jev cannot remove deterministic mandatory condition
+  ---
+  duration_ms: 62.620275
+  type: 'test'
+  ...
+# Subtest: request only includes supplied evidence and masks credentials
+ok 46 - request only includes supplied evidence and masks credentials
+  ---
+  duration_ms: 52.216619
+  type: 'test'
+  ...
+# Subtest: weight-only change does not change model request
+ok 47 - weight-only change does not change model request
+  ---
+  duration_ms: 61.058159
+  type: 'test'
+  ...
+# Subtest: HTML escapes repository source, filenames and comments
+ok 48 - HTML escapes repository source, filenames and comments
+  ---
+  duration_ms: 70.384903
+  type: 'test'
+  ...
+# Subtest: Markdown fences cannot be broken by source backticks
+ok 49 - Markdown fences cannot be broken by source backticks
+  ---
+  duration_ms: 59.032517
+  type: 'test'
+  ...
+# Subtest: deletion locations identify base, not incorrect head lines
+ok 50 - deletion locations identify base, not incorrect head lines
+  ---
+  duration_ms: 51.832937
+  type: 'test'
+  ...
+# Subtest: all three report formats are written and JSON loads
+ok 51 - all three report formats are written and JSON loads
+  ---
+  duration_ms: 52.788055
+  type: 'test'
+  ...
+# Subtest: feedback uses report and unit IDs; unknown unit rejected
+ok 52 - feedback uses report and unit IDs; unknown unit rejected
+  ---
+  duration_ms: 50.452297
+  type: 'test'
+  ...
+# Subtest: unlabeled units are not interpreted as negatives
+ok 53 - unlabeled units are not interpreted as negatives
+  ---
+  duration_ms: 70.15853
+  type: 'test'
+  ...
+# Subtest: latest label replaces earlier outcome for metrics only
+ok 54 - latest label replaces earlier outcome for metrics only
+  ---
+  duration_ms: 51.40523
+  type: 'test'
+  ...
+# Subtest: insufficient_context label is unresolved, not negative
+ok 55 - insufficient_context label is unresolved, not negative
+  ---
+  duration_ms: 62.97069
+  type: 'test'
+  ...
+# Subtest: route dropdown has well-formed options for all four review routes
+ok 56 - route dropdown has well-formed options for all four review routes
+  ---
+  duration_ms: 57.492884
+  type: 'test'
+  ...
+# Subtest: glob double-star matches zero and multiple directories
+ok 57 - glob double-star matches zero and multiple directories
+  ---
+  duration_ms: 1.192586
+  type: 'test'
+  ...
+# Subtest: unchanged context does not trigger critical keyword rule
+ok 58 - unchanged context does not trigger critical keyword rule
+  ---
+  duration_ms: 1.293969
+  type: 'test'
+  ...
+# Subtest: SQL DROP and deletion of a destructive operation are surfaced
+ok 59 - SQL DROP and deletion of a destructive operation are surfaced
+  ---
+  duration_ms: 0.640089
+  type: 'test'
+  ...
+# Subtest: deleteMany call is detected with whitespace inside parentheses
+ok 60 - deleteMany call is detected with whitespace inside parentheses
+  ---
+  duration_ms: 0.190719
+  type: 'test'
+  ...
+# Subtest: invalid weights and request settings fail closed
+ok 61 - invalid weights and request settings fail closed
+  ---
+  duration_ms: 0.538806
+  type: 'test'
+  ...
+# Subtest: unknown verification stays null, not zero
+ok 62 - unknown verification stays null, not zero
+  ---
+  duration_ms: 58.126799
+  type: 'test'
+  ...
+# Subtest: mandatory condition cannot be cancelled by low weighted scores
+ok 63 - mandatory condition cannot be cancelled by low weighted scores
+  ---
+  duration_ms: 51.325347
+  type: 'test'
+  ...
+# Subtest: uncertainty routes a nonmandatory unit to context, not approval
+ok 64 - uncertainty routes a nonmandatory unit to context, not approval
+  ---
+  duration_ms: 40.876552
+  type: 'test'
+  ...
+# Subtest: entropy recognizes concentrated and flat distributions
+ok 65 - entropy recognizes concentrated and flat distributions
+  ---
+  duration_ms: 0.295938
+  type: 'test'
+  ...
+# Subtest: common secrets are masked recursively without breaking JSON
+ok 66 - common secrets are masked recursively without breaking JSON
+  ---
+  duration_ms: 0.338172
+  type: 'test'
+  ...
+1..66
+# tests 66
+# suites 0
+# pass 66
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1174.54679
