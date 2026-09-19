@@ -1,5 +1,7 @@
 import { type Candidate, type Config, type JevResponse, type Question, type Usage } from './types.js';
-export declare const ENDPOINT = "https://api.typesafe.ai/v1/systemone";
+export declare function resolveEndpoint(override: string | undefined): string;
+export declare const ENDPOINT: string;
+export declare const LOCAL_ENDPOINT: boolean;
 export declare const RUBRIC_VERSION = "2026-09-19.v1";
 export declare function questions(c: Candidate): Record<string, Question>;
 export declare function buildRequest(c: Candidate, config: Config, ci: {
