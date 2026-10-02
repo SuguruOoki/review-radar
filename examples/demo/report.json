@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "toolVersion": "0.1.0",
-  "id": "rr-757c12ff48cd0851e249",
-  "createdAt": "2026-09-18T17:50:38.219Z",
+  "toolVersion": "0.2.1",
+  "id": "rr-66ffc12f42cb70381d5d",
+  "createdAt": "2026-10-02T15:47:52.023Z",
   "demo": true,
   "repository": {
     "name": "demo-commerce",
-    "base": "26eb26cbc14bff80ab8804b2d69d0ae377d54d9f",
-    "head": "d7fcbca562ee201e9d467427accb4e4da433ca64",
+    "base": "a8d79cdbe6669b23313e5a53a6a584cd4351faa2",
+    "head": "e3179af44783248c2c8b48db7b1aa0d1333664f1",
     "mode": "commits",
-    "diffFingerprint": "2e65b828f4aef7678f8968471d3aee70dcb978176953fd33446fb0c860a2699c"
+    "diffFingerprint": "ec3ab073f902672e9d3b3ec3b12915f656bf9e4e721853db1f93d1607095e2d1"
   },
   "provider": "heuristic",
   "config": {
@@ -100,7 +100,7 @@
   },
   "candidates": [
     {
-      "id": "u-6b62994610f4c57b",
+      "id": "u-3215b39fd5e81ea9",
       "path": "migrations/20260919_reset.sql",
       "status": "A",
       "oldMode": "000000",
@@ -200,7 +200,7 @@
       "historyCommits": 0
     },
     {
-      "id": "u-6efe24d153485a03",
+      "id": "u-54e9315e475e5001",
       "path": "src/auth/canView.ts",
       "status": "M",
       "oldMode": "100644",
@@ -310,7 +310,7 @@
       "historyCommits": 1
     },
     {
-      "id": "u-138da1332436ae57",
+      "id": "u-00c9409218a32484",
       "path": "src/billing/retryPayment.ts",
       "status": "M",
       "oldMode": "100644",
@@ -455,7 +455,126 @@
       "historyCommits": 1
     },
     {
-      "id": "u-00502d59be14f08d",
+      "id": "u-1f68dc62835491b1",
+      "path": "src/pricing/serviceFee.ts",
+      "status": "M",
+      "oldMode": "100644",
+      "newMode": "100644",
+      "oldStart": 1,
+      "oldEnd": 5,
+      "newStart": 1,
+      "newEnd": 4,
+      "added": 4,
+      "removed": 5,
+      "diff": "@@ -1,6 +1,5 @@\n-export function serviceFee(price: number): number {\n-  if (price <= 0) {\n-    throw new Error('price must be positive');\n-  }\n-  return Math.floor(price * 0.15);\n+export function serviceFee(price: number, report: { user: { wallet: { balance: number } } }): number {\n+  const fee = Math.floor(price * 0.15);\n+  report.user.wallet.balance = report.user.wallet.balance - fee;\n+  return fee;\n }\n",
+      "signals": [
+        {
+          "id": "design-contract-removed",
+          "title": "ガード節・契約の検証の削除",
+          "focus": "design",
+          "mandatory": false,
+          "evidenceId": "E0",
+          "note": "削除行に契約の検証（throw/assert/require等）がある。検証の移設・例外型の変更など意図的な契約変更でないか、呼び出し側とテストが同時に追従しているかを確認する。欠陥の検出ではありません。"
+        },
+        {
+          "id": "design-unchecked-arithmetic",
+          "title": "検証なしの算術・変換（事前条件の未確認）",
+          "focus": "design",
+          "mandatory": false,
+          "evidenceId": "E0",
+          "note": "追加行に算術やparse系の変換があるが、同じhunkの追加行にガード・検証が見当たらない。hunk外（呼び出し元・上位バリデータ）で検証済みの場合は偽陽性。欠陥の検出ではありません。"
+        },
+        {
+          "id": "design-leaky-abstraction",
+          "title": "深いプロパティ連鎖（抽象化の漏れの候補）",
+          "focus": "design",
+          "mandatory": false,
+          "evidenceId": "E0",
+          "note": "4段以上のプロパティ連鎖で内部表現に依存している可能性。読み手が内部構造を知らないと使えない・変えられない抽象化になっていないかを確認する。欠陥の検出ではありません。"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "E0",
+          "kind": "diff",
+          "path": "src/pricing/serviceFee.ts",
+          "side": "head",
+          "start": 1,
+          "end": 4,
+          "text": "@@ -1,6 +1,5 @@\n-export function serviceFee(price: number): number {\n-  if (price <= 0) {\n-    throw new Error('price must be positive');\n-  }\n-  return Math.floor(price * 0.15);\n+export function serviceFee(price: number, report: { user: { wallet: { balance: number } } }): number {\n+  const fee = Math.floor(price * 0.15);\n+  report.user.wallet.balance = report.user.wallet.balance - fee;\n+  return fee;\n }\n",
+          "truncated": false
+        },
+        {
+          "id": "E1",
+          "kind": "before",
+          "path": "src/pricing/serviceFee.ts",
+          "side": "base",
+          "start": 1,
+          "end": 7,
+          "text": "export function serviceFee(price: number): number {\n  if (price <= 0) {\n    throw new Error('price must be positive');\n  }\n  return Math.floor(price * 0.15);\n}\n",
+          "truncated": false
+        },
+        {
+          "id": "E2",
+          "kind": "after",
+          "path": "src/pricing/serviceFee.ts",
+          "side": "head",
+          "start": 1,
+          "end": 6,
+          "text": "export function serviceFee(price: number, report: { user: { wallet: { balance: number } } }): number {\n  const fee = Math.floor(price * 0.15);\n  report.user.wallet.balance = report.user.wallet.balance - fee;\n  return fee;\n}\n",
+          "truncated": false
+        }
+      ],
+      "axes": {
+        "impact": {
+          "value": 0.625,
+          "source": "heuristic",
+          "note": "パス・変更語からの暫定評価。実際の利用者影響は未検証。"
+        },
+        "verificationGap": {
+          "value": null,
+          "source": "heuristic",
+          "note": "テストの存在だけでは直接の検証・不足を判定しない。未評価。"
+        },
+        "humanJudgment": {
+          "value": 0.75,
+          "source": "heuristic",
+          "note": "検出カテゴリからの暫定評価。業務仕様の適合性は未検証。"
+        },
+        "boundary": {
+          "value": 0.25,
+          "source": "heuristic",
+          "note": "字句・パスからの境界変更の代理指標。依存グラフ解析ではない。"
+        },
+        "novelty": {
+          "value": 0.5,
+          "source": "heuristic",
+          "note": "新規ファイルとbase時点の最大40コミット数だけを使用。意味的な前例は未検証。"
+        }
+      },
+      "focus": "design",
+      "missing": [
+        "業務仕様・受け入れ条件は未提供。",
+        "関連テストを限定探索で取得できなかった。テスト不存在とは判断しない。",
+        "依存解決は相対importとファイル名一致による限定探索。型解決・全呼び出し元・動的依存は未解析。"
+      ],
+      "providerStatus": "heuristic",
+      "uncertainty": null,
+      "score": 58.3,
+      "knownWeight": 0.75,
+      "route": "human_review",
+      "required": false,
+      "questions": [
+        "変更した関数の事前条件・事後条件・不変条件は、シグニチャと入口から読めるか。境界値のガードは明示されているか。",
+        "削除・緩和されたガードや検証が意図した仕様かを確認する。契約が変わったなら呼び出し側とテストも同時に変える必要はないか。",
+        "この関数は引数→戻り値以外に外部状態を変えていないか。副作用は隔離されているか。シグニチャだけで挙動が予測できるか。",
+        "魔法数や内部構造への依存が漏れていないか。読み手が内部の具体コードを読まずに使える抽象化か。",
+        "未確認事項を補ってから判断する。低い指数やCI成功だけで承認しない。"
+      ],
+      "historyCommits": 1
+    },
+    {
+      "id": "u-9b14a44c07edae68",
       "path": "README.md",
       "status": "M",
       "oldMode": "100644",
@@ -547,7 +666,7 @@
       "historyCommits": 1
     },
     {
-      "id": "u-b4828ce834f7ea1d",
+      "id": "u-d8482dc6ee3fd9f5",
       "path": "src/queue/retry.ts",
       "status": "M",
       "oldMode": "100644",
@@ -639,7 +758,7 @@
       "historyCommits": 1
     },
     {
-      "id": "u-034672da0e8ecd27",
+      "id": "u-8c5b8b878934a190",
       "path": "src/ui/button.ts",
       "status": "M",
       "oldMode": "100644",
@@ -731,7 +850,7 @@
       "historyCommits": 1
     },
     {
-      "id": "u-5e1df4cec4d32f89",
+      "id": "u-8e4c024aa076ed16",
       "path": "src/ui/footer.ts",
       "status": "M",
       "oldMode": "100644",
@@ -823,7 +942,7 @@
       "historyCommits": 1
     },
     {
-      "id": "u-1c240a77e4e0f270",
+      "id": "u-4bd27d394fe8950c",
       "path": "src/ui/help.ts",
       "status": "M",
       "oldMode": "100644",
@@ -915,7 +1034,7 @@
       "historyCommits": 1
     },
     {
-      "id": "u-7b0aa8770ee28ee0",
+      "id": "u-571b3835448c9023",
       "path": "src/ui/title.ts",
       "status": "M",
       "oldMode": "100644",
@@ -1013,7 +1132,7 @@
     "ローカル規則モード。Jevの意味評価は未実行で、検証不足の軸は未評価です。"
   ],
   "auditSample": [
-    "u-034672da0e8ecd27"
+    "u-8c5b8b878934a190"
   ],
   "usage": {
     "requests": 0,
