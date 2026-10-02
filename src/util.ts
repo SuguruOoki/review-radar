@@ -17,6 +17,7 @@ export function round(n: number, digits = 2): number { return Number(n.toFixed(d
 export function html(s: unknown): string { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!)); }
 export function md(s: unknown): string { return String(s).replace(/[\r\n\u0000-\u001f]/g, ' ').replace(/[\\`*_{}\[\]()#+.!|<>]/g, '\\$&'); }
 export function safeMessage(e: unknown): string { return e instanceof Error ? e.message : String(e); }
+export function isTest(path: string): boolean { return /(?:^|\/)(?:__tests__|tests?|specs?)(?:\/|$)|\.(?:test|spec)\.[^/]+$|(?:^|\/)test_[^/]+\.py$|_test\.(?:go|py)$/.test(path); }
 export function safeRelative(path: string): boolean {
   return !!path && !isAbsolute(path) && !path.split(/[\\/]/).some(s => s === '..' || s === '.git') && !path.includes('\0');
 }

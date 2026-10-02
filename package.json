@@ -1,6 +1,6 @@
 {
   "name": "review-radar",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Evidence-grounded human code-review triage with Jev / TypeSafe",
   "type": "module",

@@ -1,5 +1,6 @@
 import type { Candidate, Omission, ScanOptions, Snapshot } from './types.js';
-export declare function isTest(path: string): boolean;
+import { isTest } from './util.js';
+export { isTest };
 export interface BuildResult {
     candidates: Candidate[];
     omissions: Omission[];

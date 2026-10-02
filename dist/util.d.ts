@@ -9,6 +9,7 @@ export declare function round(n: number, digits?: number): number;
 export declare function html(s: unknown): string;
 export declare function md(s: unknown): string;
 export declare function safeMessage(e: unknown): string;
+export declare function isTest(path: string): boolean;
 export declare function safeRelative(path: string): boolean;
 export declare function safeLocalRead(root: string, path: string, maxBytes: number): string;
 export declare function readProvided(path: string, maxBytes?: number): string;

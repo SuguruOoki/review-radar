@@ -19,6 +19,7 @@ export function round(n, digits = 2) { return Number(n.toFixed(digits)); }
 export function html(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 export function md(s) { return String(s).replace(/[\r\n\u0000-\u001f]/g, ' ').replace(/[\\`*_{}\[\]()#+.!|<>]/g, '\\$&'); }
 export function safeMessage(e) { return e instanceof Error ? e.message : String(e); }
+export function isTest(path) { return /(?:^|\/)(?:__tests__|tests?|specs?)(?:\/|$)|\.(?:test|spec)\.[^/]+$|(?:^|\/)test_[^/]+\.py$|_test\.(?:go|py)$/.test(path); }
 export function safeRelative(path) {
     return !!path && !isAbsolute(path) && !path.split(/[\\/]/).some(s => s === '..' || s === '.git') && !path.includes('\0');
 }

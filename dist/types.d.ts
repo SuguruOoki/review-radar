@@ -2,7 +2,7 @@ export declare const AXES: readonly ["impact", "verificationGap", "humanJudgment
 export type Axis = typeof AXES[number];
 export type Route = 'human_required' | 'human_review' | 'context_needed' | 'regular_review';
 export type ProviderStatus = 'heuristic' | 'live' | 'cached' | 'error' | 'budget_skipped' | 'not_applicable';
-export type Focus = 'authorization' | 'money' | 'data' | 'async' | 'contract' | 'general';
+export type Focus = 'authorization' | 'money' | 'data' | 'async' | 'contract' | 'design' | 'general';
 export interface AxisValue {
     value: number | null;
     source: 'heuristic' | 'jev';
@@ -154,7 +154,7 @@ export interface Usage {
 }
 export interface Report {
     schemaVersion: 1;
-    toolVersion: '0.1.0';
+    toolVersion: '0.2.0';
     id: string;
     createdAt: string;
     demo: boolean;
