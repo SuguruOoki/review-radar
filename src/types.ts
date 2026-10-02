@@ -54,7 +54,7 @@ export interface Usage {
   inputTokens: number; outputTokens: number; redactions: number;
 }
 export interface Report {
-  schemaVersion: 1; toolVersion: '0.2.0'; id: string; createdAt: string; demo: boolean;
+  schemaVersion: 1; toolVersion: '0.2.1'; id: string; createdAt: string; demo: boolean;
   repository: { name: string; base: string; head: string; mode: string; diffFingerprint: string };
   provider: 'heuristic' | 'jev'; config: Config; candidates: Candidate[];
   omissions: Omission[]; warnings: string[]; auditSample: string[];

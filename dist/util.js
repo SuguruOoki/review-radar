@@ -52,16 +52,14 @@ export function readProvided(path, maxBytes = 200_000) {
 }
 export function secureDir(path) {
     const full = resolve(path);
-    let cursor = full;
-    while (true) {
-        if (existsSync(cursor))
-            assert(!lstatSync(cursor).isSymbolicLink(), 'Refusing symlink output directory');
-        const parent = dirname(cursor);
-        if (parent === cursor)
-            break;
-        cursor = parent;
-    }
+    // The output directory itself must never be (or become) a symlink: the tool creates it,
+    // so following a planted symlink would redirect every output file. Ancestor symlinks are
+    // allowed — on macOS /var is a symlink to /private/var, and rejecting every ancestor made
+    // the tool unusable with the default temporary directory.
+    if (existsSync(full))
+        assert(!lstatSync(full).isSymbolicLink(), 'Refusing symlink output directory');
     mkdirSync(full, { recursive: true, mode: 0o700 });
+    assert(!lstatSync(full).isSymbolicLink(), 'Refusing symlink output directory');
 }
 export function atomicWrite(path, contents) {
     secureDir(dirname(path));
