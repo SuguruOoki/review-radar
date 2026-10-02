@@ -81,7 +81,7 @@ export async function scan(options) {
     const auditSample = candidates.slice(5).map(c => ({ id: c.id, key: hash('audit:' + c.id) })).sort((a, b) => a.key.localeCompare(b.key)).slice(0, Math.min(3, Math.max(1, Math.ceil(candidates.length * .1)))).map(c => c.id);
     const id = 'rr-' + hash({ snapshot: s.diffFingerprint, candidates: candidates.map(c => ({ id: c.id, axes: c.axes, route: c.route, status: c.providerStatus === 'cached' ? 'live' : c.providerStatus, evidence: c.evidence, missing: c.missing, questions: c.questions })), config: options.config, ci }).slice(0, 20);
     const report = {
-        schemaVersion: 1, toolVersion: '0.1.0', id, createdAt: new Date().toISOString(), demo: false,
+        schemaVersion: 1, toolVersion: '0.2.0', id, createdAt: new Date().toISOString(), demo: false,
         repository: { name: basename(s.root), base: s.baseSha, head: s.headLabel, mode: s.mode, diffFingerprint: s.diffFingerprint },
         provider: options.provider, config: options.config, candidates, omissions: built.omissions, warnings, auditSample, usage,
         complete: built.omissions.length === 0 && candidates.every(c => !['error', 'budget_skipped', 'not_applicable'].includes(c.providerStatus) && !c.missing.some(m => m.startsWith('BLOCK:'))), ci

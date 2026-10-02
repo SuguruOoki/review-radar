@@ -50,7 +50,7 @@ export function validateConfig(c: Config): void {
   assert(Array.isArray(c.exclude) && c.exclude.every(x => typeof x === 'string' && x.length < 500), 'Invalid exclude patterns');
   assert(Array.isArray(c.pathRules), 'pathRules must be an array');
   const ids = new Set<string>();
-  const focuses: Focus[] = ['authorization','money','data','async','contract','general'];
+  const focuses: Focus[] = ['authorization','money','data','async','contract','design','general'];
   for (const r of c.pathRules) {
     assert(object(r) && typeof r.id === 'string' && /^[a-z0-9_-]{1,80}$/i.test(r.id) && !ids.has(r.id), 'Invalid or duplicate path rule id');
     ids.add(r.id);

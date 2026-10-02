@@ -2,7 +2,7 @@ export const AXES = ['impact', 'verificationGap', 'humanJudgment', 'boundary', '
 export type Axis = typeof AXES[number];
 export type Route = 'human_required' | 'human_review' | 'context_needed' | 'regular_review';
 export type ProviderStatus = 'heuristic' | 'live' | 'cached' | 'error' | 'budget_skipped' | 'not_applicable';
-export type Focus = 'authorization' | 'money' | 'data' | 'async' | 'contract' | 'general';
+export type Focus = 'authorization' | 'money' | 'data' | 'async' | 'contract' | 'design' | 'general';
 export interface AxisValue { value: number | null; source: 'heuristic' | 'jev'; note: string }
 export interface Evidence {
   id: string; kind: 'diff' | 'before' | 'after' | 'test' | 'dependency' | 'spec';
@@ -54,7 +54,7 @@ export interface Usage {
   inputTokens: number; outputTokens: number; redactions: number;
 }
 export interface Report {
-  schemaVersion: 1; toolVersion: '0.1.0'; id: string; createdAt: string; demo: boolean;
+  schemaVersion: 1; toolVersion: '0.2.0'; id: string; createdAt: string; demo: boolean;
   repository: { name: string; base: string; head: string; mode: string; diffFingerprint: string };
   provider: 'heuristic' | 'jev'; config: Config; candidates: Candidate[];
   omissions: Omission[]; warnings: string[]; auditSample: string[];

@@ -75,6 +75,7 @@ export function questions(c: Candidate): Record<string, Question> {
       data: 'Persistence integrity, destructive changes, schema migration or recovery.',
       async: 'Retries, concurrent execution, event ordering, deduplication or cancellation.',
       contract: 'API/interface compatibility, external integration, deployment or environment contracts.',
+      design: 'Design-for-readability concerns: contracts (pre/post/invariant), side-effect-free functions, or abstraction leaks that make the change harder to verify without reading internals.',
       general: 'A general local behavior concern, or none of the specialized concerns is evidenced.'
     } },
     evidence: { type: 'choice', instructions: PREFIX + 'Select the supplied evidence ID that best grounds the most important human review concern. Select none if no supplied evidence supports a concern. Do not select an ID simply because it sounds important.', criteria: {

@@ -2,9 +2,9 @@ import { basename, dirname, extname, posix, relative, resolve } from 'node:path'
 import type { Candidate, ChangedFile, Evidence, Hunk, Omission, ScanOptions, Snapshot } from './types.js';
 import { fileDiff, historyCount, parseHunks, readSource } from './git.js';
 import { chooseFocus, detectSignals, initialAxes, rankCandidate } from './rules.js';
-import { globMatch, hash, readProvided, safeMessage, sensitivePath } from './util.js';
+import { globMatch, hash, isTest, readProvided, safeMessage, sensitivePath } from './util.js';
 
-export function isTest(path: string): boolean { return /(?:^|\/)(?:__tests__|tests?|specs?)(?:\/|$)|\.(?:test|spec)\.[^/]+$|(?:^|\/)test_[^/]+\.py$|_test\.(?:go|py)$/.test(path); }
+export { isTest };
 function stem(path: string): string { return basename(path).replace(/\.(?:test|spec)(?=\.)/, '').replace(/^test_/, '').replace(/_test(?=\.)/, '').replace(/\.[^.]+$/, ''); }
 function clipLines(text: string, chars: number): { text: string; lines: number; truncated: boolean } {
   const all = text.split('\n'), selected: string[] = []; let size = 0;
