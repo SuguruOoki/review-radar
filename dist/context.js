@@ -1,8 +1,8 @@
 import { basename, dirname, extname, posix, relative, resolve } from 'node:path';
 import { fileDiff, historyCount, parseHunks, readSource } from './git.js';
 import { chooseFocus, detectSignals, initialAxes, rankCandidate } from './rules.js';
-import { globMatch, hash, readProvided, safeMessage, sensitivePath } from './util.js';
-export function isTest(path) { return /(?:^|\/)(?:__tests__|tests?|specs?)(?:\/|$)|\.(?:test|spec)\.[^/]+$|(?:^|\/)test_[^/]+\.py$|_test\.(?:go|py)$/.test(path); }
+import { globMatch, hash, isTest, readProvided, safeMessage, sensitivePath } from './util.js';
+export { isTest };
 function stem(path) { return basename(path).replace(/\.(?:test|spec)(?=\.)/, '').replace(/^test_/, '').replace(/_test(?=\.)/, '').replace(/\.[^.]+$/, ''); }
 function clipLines(text, chars) {
     const all = text.split('\n'), selected = [];

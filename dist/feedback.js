@@ -10,7 +10,7 @@ export function loadReport(path) {
         assert(object(c) && typeof c.id === 'string' && /^u-[a-f0-9]{16}$/.test(c.id) && !ids.has(c.id), 'Invalid or duplicate candidate');
         ids.add(c.id);
         assert(object(c.axes) && Array.isArray(c.signals) && Array.isArray(c.missing) && Array.isArray(c.evidence), 'Invalid candidate fields');
-        assert(typeof c.path === 'string' && typeof c.focus === 'string' && ['authorization', 'money', 'data', 'async', 'contract', 'general'].includes(c.focus), 'Invalid candidate focus');
+        assert(typeof c.path === 'string' && typeof c.focus === 'string' && ['authorization', 'money', 'data', 'async', 'contract', 'design', 'general'].includes(c.focus), 'Invalid candidate focus');
         for (const a of AXES) {
             const value = c.axes[a];
             assert(object(value) && (value.value === null || bounded(value.value, 0, 1)), 'Invalid candidate axis');
