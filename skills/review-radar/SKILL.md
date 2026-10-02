@@ -19,7 +19,7 @@ Jev requires a separate, explicit user authorization to disclose the target sour
 
 ## Present the result
 
-Read the generated `report.json` and grounded evidence, not just the global point score. Summarize mandatory candidates first, then high-priority and context-needed cases. Include real paths, base/head location, concrete human questions, and exactly what evidence is missing. Keep unknown verification unknown. Distinguish lexical/pattern signals from verified bugs. Scores and confidence are not defect probabilities or correctness guarantees.
+Read the generated `report.json` and grounded evidence, not just the global point score. Summarize mandatory candidates first, then high-priority and context-needed cases. If design-lens signals (ids starting with `design-`) are present, surface them as reading-cost concerns — a signal is a prompt for a human look, never a defect finding. Include real paths, base/head location, concrete human questions, and exactly what evidence is missing. Keep unknown verification unknown. Distinguish lexical/pattern signals from verified bugs. Scores and confidence are not defect probabilities or correctness guarantees.
 
 Show the generated report path. Mention the lower-ranked audit candidates as candidates, not independently confirmed safe code. A normal candidate or exit status 0 is never approval. Do not hide remaining changes or claim that tests were run by this tool.
 
