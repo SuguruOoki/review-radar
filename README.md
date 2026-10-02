@@ -100,7 +100,6 @@ cd review-radar
 node dist/cli.js doctor
 ```
 
-> The repository is currently private; cloning requires access. See [Roadmap](#roadmap--help-wanted) for the public-release plan.
 
 `doctor` reports the tool version and the Node and Git it sees (the versions below are from one machine — yours will differ):
 
@@ -150,7 +149,7 @@ node dist/cli.js scan --repo /path/to/your-repo --include-untracked --out ./revi
 `origin/main` must exist locally — the tool does not fetch. Renames are treated as delete + add. Each scan prints a summary JSON:
 
 ```json
-{ "reportId": "rr-2aade14d5000225e7471", "candidates": 1, "required": 0, "complete": false, "requests": 0, "output": "/private/tmp/rr-scan-stdout" }
+{ "reportId": "rr-2aade14d5000225e7471", "candidates": 1, "required": 0, "complete": false, "requests": 0, "output": "/private/tmp/review-output" }
 ```
 
 Files that are untracked (without `--include-untracked`), excluded by configuration, or over the size limits are listed in the report's omissions list — never silently dropped. Binary, symlink, submodule and mode-only changes become placeholder candidates marked unanalysed, so they stay visible in the report.
@@ -286,7 +285,7 @@ Review Radar does not run your build, tests or linters, and it does not post com
 - Calibration of weights and thresholds against real review outcomes (use `feedback` + `evaluate`)
 - Function-level or AST-based unit splitting
 - More design-lens and domain checks as configuration, not code
-- GitHub Releases with prebuilt archives once the repository is public
+- GitHub Releases with prebuilt archives
 
 Issues and pull requests are welcome; see [CONTRIBUTING.md](CONTRIBUTING.md).
 

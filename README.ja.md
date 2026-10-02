@@ -85,7 +85,6 @@ cd review-radar
 node dist/cli.js doctor
 ```
 
-> リポジトリは現在 private です。clone にはアクセス権が必要です。公開の計画は[ロードマップ](#ロードマップ手伝ってほしいこと)を参照。
 
 `doctor` はツールのバージョンと、実行環境の Node / Git を表示します（下は実測の一例）:
 
@@ -137,7 +136,7 @@ node dist/cli.js scan --repo /path/to/your-repo --include-untracked --out ./revi
 `origin/main` がローカルに存在することが前提です。ツールはfetchしません。renameは削除と追加として扱います。実行ごとにサマリJSONを表示します:
 
 ```json
-{ "reportId": "rr-2aade14d5000225e7471", "candidates": 1, "required": 0, "complete": false, "requests": 0, "output": "/private/tmp/rr-scan-stdout" }
+{ "reportId": "rr-2aade14d5000225e7471", "candidates": 1, "required": 0, "complete": false, "requests": 0, "output": "/private/tmp/review-output" }
 ```
 
 未追跡・除外・上限超過のファイルはレポートの**対象外一覧**に表示されます（黙って落としません）。binary・symlink・submodule・モードのみの変更は、中身をモデルに送らず「未解析」のプレースホルダ候補としてレポートに残ります。
@@ -285,7 +284,7 @@ Review Radar はビルド・テスト・linterを実行せず、コメント投�
 - 実レビュー結果による重み・閾値の較正（`feedback` + `evaluate` を活用）
 - 関数単位・ASTベースのユニット分割
 - designレンズやドメイン別チェックの設定ファイル化（コード追加なしで拡張できる形へ）
-- 公開後の GitHub Releases（ビルド済みアーカイブ配布）
+- GitHub Releases（ビルド済みアーカイブ配布）
 
 Issue・PRは歓迎です。[CONTRIBUTING.md](CONTRIBUTING.md) を参照してください。
 
