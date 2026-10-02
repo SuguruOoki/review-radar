@@ -6,7 +6,7 @@ Gitの変更差分を、**人間の確認が必須・人間レビューを優先
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Node >= 22](https://img.shields.io/badge/Node-%3E%3D22-green.svg)](package.json)
 
-<img src="docs/demo.gif" width="760" alt="端末デモ: デモリポジトリのスキャンとレポートの確認">
+<img src="docs/demo.gif" width="760" alt="端末デモ: 何気ない3つの変更（認可チェックの弱体化・破壊的SQL・手数料計算の副作用）が必須確認と優先レビューに整理されるまで">
 
 **English guide: [README.md](README.md)** — 更新時の正は英語版です。
 
@@ -201,7 +201,7 @@ outcome は `critical_fix` / `bug_fix` / `spec_decision` / `design_decision` / `
 
 HTMLレポートは検索・確認ルートの絞り込み・根拠コードの展開に対応します:
 
-<img src="docs/report.png" width="720" alt="Review Radar のHTMLレポート。必須確認候補・シグナル・評価軸を表示">
+<img src="docs/report-tour.gif" width="760" alt="レポート操作ツアー: 必須確認への絞り込み、破壊的マイグレーションの根拠の展開、designレンズ候補の検索">
 
 各候補カードには、一致したシグナル・答えるべき問い・評価軸の値が並びます。以下はデモの実例（手数料計算からガード節を削除し、ウォレット残高を書き換えた hunk に design レンズが反応したもの）:
 

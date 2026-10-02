@@ -6,6 +6,7 @@
 - `design-unchecked-arithmetic` no longer treats hyphenated words (`review-priority`) as arithmetic; subtraction now requires whitespace around the minus.
 - The demo fixture gained a design-lens example (removed precondition guard, side-effect write, deep property chain) and `examples/demo` outputs were regenerated.
 - peco-style README in English and Japanese, plus CONTRIBUTING, CHANGELOG, SECURITY, issue/PR templates, and a bundled `design-for-reading-review` skill.
+- Demo assets: a terminal story GIF (harmless-looking diff triaged into mandatory candidates) and an interactive report tour GIF (filter, evidence expansion, search).
 
 ## 0.2.0 (2026-10-02)
 

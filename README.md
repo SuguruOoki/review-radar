@@ -6,7 +6,7 @@ Human code-review triage for a Git diff — which hunks a person should read fir
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Node >= 22](https://img.shields.io/badge/Node-%3E%3D22-green.svg)](package.json)
 
-<img src="docs/demo.gif" width="760" alt="Terminal demo: scanning a demo repository and reading the generated report">
+<img src="docs/demo.gif" width="760" alt="Terminal demo: three changes that look harmless (a weakened authorization check, a destructive SQL migration, a side effect in a fee calculation) are triaged into mandatory and priority review candidates">
 
 **Japanese guide: [README.ja.md](README.ja.md)**
 
@@ -214,7 +214,7 @@ Outcomes are `critical_fix`, `bug_fix`, `spec_decision`, `design_decision`, `cos
 
 The HTML report is searchable, filters by route, and expands the evidence behind each candidate:
 
-<img src="docs/report.png" width="720" alt="Review Radar HTML report showing mandatory candidates, signals and axis scores">
+<img src="docs/report-tour.gif" width="760" alt="Report tour: filtering to mandatory candidates, expanding the evidence for a destructive migration, and searching for the design-lens candidate">
 
 Each candidate card shows the matched signals, the review questions to answer, and the axis values. This is a real candidate from the demo — the design lens on a hunk that removed a precondition guard and rewrote a nested wallet balance:
 
