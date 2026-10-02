@@ -38,7 +38,7 @@ async function main(): Promise<void> {
   if (command === 'doctor') {
     let gitVersion: string;
     try { gitVersion = execFileSync('git',['--version'],{encoding:'utf8'}).trim(); } catch { gitVersion = 'NOT FOUND'; }
-    console.log(JSON.stringify({ tool: 'review-radar 0.1.0', node: process.version, git: gitVersion, typesafeApiKey: process.env.TYPESAFE_API_KEY ? 'present (not verified)' : 'not configured', externalRequests: 0 },null,2)); return;
+    console.log(JSON.stringify({ tool: 'review-radar 0.2.0', node: process.version, git: gitVersion, typesafeApiKey: process.env.TYPESAFE_API_KEY ? 'present (not verified)' : 'not configured', externalRequests: 0 },null,2)); return;
   }
   if (command === 'init') { atomicWrite(resolve(text('out', 'review-radar.config.json')!), JSON.stringify(DEFAULT_CONFIG,null,2)+'\n'); console.log('Configuration written.'); return; }
   if (command === 'scan' || command === 'demo') {

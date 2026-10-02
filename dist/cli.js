@@ -52,7 +52,7 @@ async function main() {
         catch {
             gitVersion = 'NOT FOUND';
         }
-        console.log(JSON.stringify({ tool: 'review-radar 0.1.0', node: process.version, git: gitVersion, typesafeApiKey: process.env.TYPESAFE_API_KEY ? 'present (not verified)' : 'not configured', externalRequests: 0 }, null, 2));
+        console.log(JSON.stringify({ tool: 'review-radar 0.2.0', node: process.version, git: gitVersion, typesafeApiKey: process.env.TYPESAFE_API_KEY ? 'present (not verified)' : 'not configured', externalRequests: 0 }, null, 2));
         return;
     }
     if (command === 'init') {
