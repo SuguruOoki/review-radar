@@ -56,6 +56,16 @@ test('design-unchecked-arithmetic: テストファイルでは検出しない', 
   assert.equal(detectSignals('calc.test.ts', h, DEFAULT_CONFIG).some(s => s.id === 'design-unchecked-arithmetic'), false);
 });
 
+test('design-unchecked-arithmetic: ハイフン区切りの語は算術とみなさない', () => {
+  const h = parseHunks('@@ -1,0 +1,1 @@\n+Example application for a review-priority report.\n')[0];
+  assert.equal(detectSignals('README.md', h, DEFAULT_CONFIG).some(s => s.id === 'design-unchecked-arithmetic'), false);
+});
+
+test('design-unchecked-arithmetic: 空白付きの減算は検出する', () => {
+  const h = parseHunks('@@ -1,0 +1,1 @@\n+    report.user.wallet.balance = report.user.wallet.balance - charge;\n')[0];
+  assert.ok(detectSignals('pricing.ts', h, DEFAULT_CONFIG).some(s => s.id === 'design-unchecked-arithmetic'));
+});
+
 test('design-stringly-typed: 文字列リテラルでの状態判別を検出する', () => {
   const h = parseHunks('@@ -1,0 +1,1 @@\n+    if (user.status === "admin") {\n')[0];
   assert.ok(detectSignals('roles.ts', h, DEFAULT_CONFIG).some(s => s.id === 'design-stringly-typed'));

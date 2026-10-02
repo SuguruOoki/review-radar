@@ -33,7 +33,7 @@ const DETECTORS: Detector[] = [
   { id: 'design-contract-removed', title: 'ガード節・契約の検証の削除', focus: 'design', mandatory: false, lines: 'removed', skipTests: true, pattern: /\b(?:throw|raise)\b|\bassert\b|\bAssert\.|\brequireNonNull\b|\bcheck(?:Argument|State|NotNull)\b|\bPreconditions\.|\bObjects\.requireNonNull\b|\bfail\s*\(/, note: '削除行に契約の検証（throw/assert/require等）がある。検証の移設・例外型の変更など意図的な契約変更でないか、呼び出し側とテストが同時に追従しているかを確認する。欠陥の検出ではありません。' },
   { id: 'design-side-effect-write', title: '外部状態への代入（副作用の候補）', focus: 'design', mandatory: false, lines: 'added', skipTests: true, pattern: /\b(?:this|self|globalThis|window|global|process\.env)\.[A-Za-z_$#][\w$]*\s*(?:\+\+|--|[+\-*/%&|^]?=)/, note: 'インスタンス変数・グローバル等への代入。コンストラクタの初期化や意図的な状態更新か、計算中に混入した副作用かを確認する。引数オブジェクトの書き換えは字句では検出しない。欠陥の検出ではありません。' },
   { id: 'design-unchecked-arithmetic', title: '検証なしの算術・変換（事前条件の未確認）', focus: 'design', mandatory: false, lines: 'added', skipTests: true, compound: (hunk) => {
-    const ARITH = /(?:[\w.)\]"']\s*[+\-*/%]\s*[\w(.$'"-]|parse(?:Int|Float)\s*\(|Number\s*\()/;
+    const ARITH = /(?:[\w.)\]"']\s*[+*/%]\s*[\w(.$'"-]|[\w.)\]"']\s+-\s+[\w(.$'"-]|parse(?:Int|Float)\s*\(|Number\s*\()/;
     const GUARD = /(?:if\s*\(|throw\b|assert\b|validate|isValid|\.parse\s*\(|\.safeParse\s*\(|\.test\s*\()/i;
     return hunk.added.some(l => ARITH.test(l)) && !hunk.added.some(l => GUARD.test(l));
   }, note: '追加行に算術やparse系の変換があるが、同じhunkの追加行にガード・検証が見当たらない。hunk外（呼び出し元・上位バリデータ）で検証済みの場合は偽陽性。欠陥の検出ではありません。' },
