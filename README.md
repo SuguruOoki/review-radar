@@ -6,7 +6,7 @@ Human code-review triage for a Git diff — which hunks a person should read fir
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Node >= 22](https://img.shields.io/badge/Node-%3E%3D22-green.svg)](package.json)
 
-<img src="docs/demo.gif" width="760" alt="Terminal demo: three changes that look harmless (a weakened authorization check, a destructive SQL migration, a side effect in a fee calculation) are triaged into mandatory and priority review candidates">
+<img src="docs/demo.gif" width="780" alt="Terminal demo: three changes that look harmless (a weakened authorization check, a destructive SQL migration, a side effect in a fee calculation) are shown as a git diff, scanned, and reported as 2 required candidates">
 
 **Japanese guide: [README.ja.md](README.ja.md)**
 

@@ -6,7 +6,7 @@ Gitの変更差分を、**人間の確認が必須・人間レビューを優先
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Node >= 22](https://img.shields.io/badge/Node-%3E%3D22-green.svg)](package.json)
 
-<img src="docs/demo.gif" width="760" alt="端末デモ: 何気ない3つの変更（認可チェックの弱体化・破壊的SQL・手数料計算の副作用）が必須確認と優先レビューに整理されるまで">
+<img src="docs/demo.ja.gif" width="780" alt="端末デモ: 何気ない3つの変更（認可チェックの弱体化・破壊的SQL・手数料計算の副作用）を git diff で見せてからスキャンし、必須2件として整理されるまで">
 
 **English guide: [README.md](README.md)** — 更新時の正は英語版です。
 
